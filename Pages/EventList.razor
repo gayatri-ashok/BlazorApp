@@ -1,0 +1,24 @@
+﻿@page "/"
+@using BlazorApp1.Models
+@using Microsoft.AspNetCore.Components.Web.Virtualization
+
+<Virtualize Items="events" Context="ev">
+    <EventCard Data="ev" />
+</Virtualize>
+<h3>Upcoming Events</h3>
+
+<div class="d-flex flex-wrap">
+    @foreach (var ev in events)
+    {
+       <BlazorApp1.Shared.EventCard Data="ev" />
+    }
+</div>
+
+@code {
+    private List<Event> events = new()
+    {
+        new() { Id = 1, Name = "Tech Summit 2025", Date = DateTime.Today.AddDays(5), Location = "New York" },
+        new() { Id = 2, Name = "Innovation Expo", Date = DateTime.Today.AddDays(12), Location = "San Francisco" },
+        new() { Id = 3, Name = "Leadership Meetup", Date = DateTime.Today.AddDays(20), Location = "Chicago" }
+    };
+}

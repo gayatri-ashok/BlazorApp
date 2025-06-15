@@ -1,0 +1,41 @@
+﻿@page "/eventdetails/{EventId:int}"
+@using BlazorApp1.Models
+@inject NavigationManager NavManager
+
+<h3>Event Details</h3>
+
+@if (selectedEvent == null)
+{
+	@if (selectedEvent == null)
+{
+    <p class="text-warning">This event could not be found.</p>
+    <NavLink href="/events" class="btn btn-outline-primary">Go Back</NavLink>
+}
+}
+else
+{
+	<div class="card p-4 shadow-sm">
+		<h4>@selectedEvent.Name</h4>
+		<p><strong>Date:</strong> @selectedEvent.Date.ToLongDateString()</p>
+		<p><strong>Location:</strong> @selectedEvent.Location</p>
+		<NavLink class="btn btn-success" href="/register">Register Now</NavLink>
+	</div>
+}
+
+@code {
+	[Parameter] public int EventId { get; set; }
+
+	private Event selectedEvent;
+
+	protected override void OnInitialized()
+	{
+		var mockData = new List<Event>
+		{
+			new() { Id = 1, Name = "Tech Summit 2025", Date = DateTime.Today.AddDays(5), Location = "New York" },
+			new() { Id = 2, Name = "Innovation Expo", Date = DateTime.Today.AddDays(12), Location = "San Francisco" },
+			new() { Id = 3, Name = "Leadership Meetup", Date = DateTime.Today.AddDays(20), Location = "Chicago" }
+		};
+
+		selectedEvent = mockData.FirstOrDefault(e => e.Id == EventId);
+	}
+}

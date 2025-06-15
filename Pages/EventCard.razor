@@ -1,0 +1,17 @@
+﻿@using BlazorApp1.Models
+@inherits LayoutComponentBase
+
+<div class="card m-3 shadow-sm" style="width: 18rem;">
+	<div class="card-body">
+		<h5 class="card-title">@(!string.IsNullOrWhiteSpace(Data?.Name) ? Data.Name : "Unnamed Event")</h5>
+		<p class="card-text">
+			@(Data?.Date != default ? Data.Date.ToString("d") : "Date TBD") —
+			@(string.IsNullOrWhiteSpace(Data?.Location) ? "Location TBA" : Data.Location)
+		</p>
+		<NavLink href=@($"/eventdetails/{Data.Id}")>View Details</NavLink>
+	</div>
+</div>
+
+@code {
+	[Parameter] public Event Data { get; set; }
+}
